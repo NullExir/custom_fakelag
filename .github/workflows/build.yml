@@ -1,6 +1,15 @@
 name: build
 
-on: [push, pull_request, workflow_dispatch]
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: '30 03 01 */3 *' # Artifacts expire every 3 months
 
 jobs:
   build:
@@ -8,7 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - os: ubuntu-22.04
+        - os: ubuntu-20.04
           os_short: oldlinux
           sourcemod_version: 1.10-dev
           branch: l4d2-fork
